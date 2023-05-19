@@ -16,12 +16,12 @@ var version = process.env.BUILD_DATE;
 
 type ContainerAppProps = {
   CounterAppOne: React.LazyExoticComponent<React.ComponentType<{}>>;
-  CounterAppTwo: React.LazyExoticComponent<React.ComponentType<{}>>;
+  // CounterAppTwo: React.LazyExoticComponent<React.ComponentType<{}>>;
 };
 
 export const ContainerApp = ({
   CounterAppOne,
-  CounterAppTwo,
+  // CounterAppTwo,
 }: ContainerAppProps) => {
   return (
     <Center
@@ -64,7 +64,7 @@ export const ContainerApp = ({
               </Button>
             </Box>
           </React.Suspense>
-          <React.Suspense fallback={<Spinner size="xl" />}>
+          {/* <React.Suspense fallback={<Spinner size="xl" />}>
             <Box
               p="2rem"
               border="1px solid #aeaeae"
@@ -85,7 +85,7 @@ export const ContainerApp = ({
                 To App2
               </Button>
             </Box>
-          </React.Suspense>
+          </React.Suspense> */}
         </Flex>
       </Flex>
       <Link

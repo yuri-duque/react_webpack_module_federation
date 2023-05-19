@@ -11,7 +11,7 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
   return {
     entry: "./src/index.ts",
-    mode: process.env.NODE_ENV || "development",
+    mode: "development",
     devServer: {
       port: 3000,
       open: true,
@@ -61,8 +61,8 @@ module.exports = (env, argv) => {
       new ModuleFederationPlugin({
         name: "container",
         remotes: {
-          app1: isProduction ? process.env.PROD_APP1 : process.env.DEV_APP1,
-          app2: isProduction ? process.env.PROD_APP2 : process.env.DEV_APP2,
+          app1: 'app1@http://localhost:3001/remoteEntry.js',
+          // app2: isProduction ? process.env.PROD_APP2 : process.env.DEV_APP2,
         },
         shared: {
           ...deps,
