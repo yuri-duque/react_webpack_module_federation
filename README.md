@@ -18,5 +18,5 @@ Hi! In this project I will show how to make a minimal setup for a react webpack 
 
 
 
+![image](https://github.com/yuri-duque/react_webpack_module_federation/assets/26638073/5f81911a-3271-4e05-9b52-c362dddd167c)
 
-![image](https://github.com/yuri-duque/react_webpack_module_federation/assets/26638073/212b540a-3625-4879-89b5-c93b9014abfb)
