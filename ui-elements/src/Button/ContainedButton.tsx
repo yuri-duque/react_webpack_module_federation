@@ -13,9 +13,9 @@ export interface ButtonProps {
 export const Button = function ({
   size = "medium",
   color = "primary",
-  uppercase,
-  bold,
-  disabled,
+  uppercase = false,
+  bold = true,
+  disabled = false,
   onClick,
   children,
 }: ButtonProps) {
