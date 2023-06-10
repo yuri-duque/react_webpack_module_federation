@@ -39,12 +39,6 @@ function handleClassName(
 ) {
   let className = `rounded cursor-pointer shadow-[2px_4px_1px_#cdcdcd] transition-colors duration-300`;
 
-  if (disabled) {
-    className += " opacity-50 cursor-not-allowed";
-  } else {
-    className += ` active:shadow-[2px_2px_1px_#9e9e9e] active:translate-y-0.5 `;
-  }
-
   switch (color) {
     case "primary":
       className += " bg-primary hover:bg-primary-dark text-white";
@@ -72,6 +66,10 @@ function handleClassName(
       className += " text-lg py-4 px-8";
       break;
   }
+
+  if (disabled) className += " opacity-50 cursor-not-allowed";
+  else
+    className += ` active:shadow-[2px_2px_1px_#9e9e9e] active:translate-y-0.5 `;
 
   if (uppercase) className += " uppercase";
 
