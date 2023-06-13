@@ -6,7 +6,9 @@ module.exports = {
     },
     colors: {
       white: "#FFF",
-      black: "#000",
+      "white-dark": "#fafafa",
+
+      black: "#424242",
 
       primary: "#2196f3",
       "primary-light": "#4dabf5",
@@ -19,6 +21,13 @@ module.exports = {
       error: "#f44336",
       "error-light": "#f6685e",
       "error-dark": "#d14136",
+    },
+    backgroundSize: {
+      auto: "auto",
+      cover: "cover",
+      contain: "contain",
+      "50%": "50%",
+      16: "4rem",
     },
   },
 };
