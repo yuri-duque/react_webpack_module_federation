@@ -1,75 +1,76 @@
-const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { HotModuleReplacementPlugin } = require("webpack");
+import webpack from "webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import path from "path";
+import pkg from "./package.json";
 
-module.exports = (env, argv) => {
-  return {
-    entry: path.join(__dirname, "src", "index.js"),
-    output: {
-      path: path.resolve(__dirname, "dist"),
-      filename: "bundle.js",
+const { ModuleFederationPlugin } = webpack.container;
+const deps = pkg.dependencies;
+
+module.exports = {
+  entry: path.join(__dirname, "src", "index.tsx"),
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+  },
+  mode: "development",
+  devServer: {
+    port: 3001,
+    open: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
     },
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: "[name].bundle.css",
-        chunkFilename: "[id].css",
-      }),
-      new HotModuleReplacementPlugin(),
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|tsx|ts)$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"],
+      },
+      {
+        test: /\.(css|s[ac]ss)$/i,
+        include: path.resolve(__dirname, "src"),
+        exclude: /node_modules/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+      },
     ],
-    devServer: {
-      open: true,
-      clientLogLevel: "silent",
-      contentBase: "./dist",
-      historyApiFallback: true,
-      hot: true,
-    },
-    module: {
-      rules: [
-        {
-          test: /\.(jsx|js)$/,
-          include: path.resolve(__dirname, "src"),
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: "babel-loader",
-              options: {
-                presets: [
-                  [
-                    "@babel/preset-env",
-                    {
-                      targets: {
-                        node: "12",
-                      },
-                    },
-                  ],
-                  "@babel/preset-react",
-                ],
-              },
-            },
-          ],
-        },
-        {
-          test: /\.css$/i,
-          include: path.resolve(__dirname, "src"),
-          exclude: /node_modules/,
-          use: [
-            "style-loader",
-            {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                hmr: argv.mode === "development",
-              },
-            },
-            {
-              loader: "css-loader",
-              options: {
-                importLoaders: 1,
-              },
-            },
-            "postcss-loader",
-          ],
-        },
-      ],
-    },
-  };
+  },
+  plugins: [
+    // new ModuleFederationPlugin({
+    //   name: "ui-elements",
+    //   filename: "remoteEntry.js",
+    //   exposes: {
+    //     "ui-elements/Button/ContainedButton": "./src/Button/ContainedButton",
+    //     "ui-elements/Card": "./src/Card/Card",
+    //   },
+    //   shared: {
+    //     ...deps,
+    //     react: { singleton: true, eager: true, requiredVersion: deps.react },
+    //     "react-dom": {
+    //       singleton: true,
+    //       eager: true,
+    //       requiredVersion: deps["react-dom"],
+    //     },
+    //     "react-router-dom": {
+    //       singleton: true,
+    //       eager: true,
+    //       requiredVersion: deps["react-router-dom"],
+    //     },
+    //   },
+    // }),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].bundle.css",
+      chunkFilename: "[id].css",
+    }),
+    new CleanWebpackPlugin(), // Um plugin webpack para remover / limpar sua (s) pasta (s) de construção.
+    new webpack.HotModuleReplacementPlugin(), // Atualiza o navegador quando houver alterações no código
+  ],
 };
