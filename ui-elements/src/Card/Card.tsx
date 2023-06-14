@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import CardTitle from "./CardTitle";
 
 export interface CardProps {
