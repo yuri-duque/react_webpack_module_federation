@@ -30,8 +30,8 @@ module.exports = {
       name: "app1",
       filename: "remoteEntry.js",
       exposes: {
-        // expose each component
-        "./CounterAppOne": "./src/components/CounterAppOne",
+        "ui-elements/Button/ContainedButton": "./src/Button/ContainedButton",
+        "ui-elements/Card": "./src/Card/Card",
       },
       shared: {
         ...deps,
