@@ -4,7 +4,7 @@ const path = require("path");
 const deps = require("./package.json").dependencies;
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   mode: "development",
   devServer: {
     port: 3001,
@@ -27,7 +27,7 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "app1",
+      name: "ui-elements",
       filename: "remoteEntry.js",
       exposes: {
         "ui-elements/Button/ContainedButton": "./src/Button/ContainedButton",
