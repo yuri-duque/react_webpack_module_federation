@@ -4,9 +4,8 @@
   "private": true,
   "main": "src/index.tsx",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "start": "webpack serve",
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -19,6 +18,11 @@
     "@types/react-dom": "^18.2.4",
     "@types/webpack": "^5.28.1",
     "@types/webpack-dev-server": "^4.7.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss": "^8.4.24",
+    "postcss-loader": "^7.3.3",
     "tailwindcss": "^3.3.2",
     "typescript": "^4.9.5",
     "webpack": "^5.86.0",
