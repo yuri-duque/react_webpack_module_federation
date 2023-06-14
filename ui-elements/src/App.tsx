@@ -1,6 +1,8 @@
 import React from "react";
-import Card from "ui-elements/Card";
+import Card from "./Card/Card";
 import ContainedButton from "./Button/ContainedButton";
+
+import "./App.css";
 
 const App = () => {
   return (
