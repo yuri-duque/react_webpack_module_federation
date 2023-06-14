@@ -1,55 +1,75 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { ModuleFederationPlugin } = require("webpack").container;
 const path = require("path");
-const deps = require("./package.json").dependencies;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { HotModuleReplacementPlugin } = require("webpack");
 
-module.exports = {
-  entry: "./src/index.tsx",
-  mode: "development",
-  devServer: {
-    port: 3001,
-    open: true,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
+module.exports = (env, argv) => {
+  return {
+    entry: path.join(__dirname, "src", "index.js"),
+    output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "bundle.js",
     },
-  },
-  resolve: {
-    extensions: [".ts", ".tsx", ".js"],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx|tsx|ts)$/,
-        loader: "ts-loader",
-        exclude: /node_modules/,
-      },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: "[name].bundle.css",
+        chunkFilename: "[id].css",
+      }),
+      new HotModuleReplacementPlugin(),
     ],
-  },
-  plugins: [
-    new ModuleFederationPlugin({
-      name: "ui-elements",
-      filename: "remoteEntry.js",
-      exposes: {
-        "ui-elements/Button/ContainedButton": "./src/Button/ContainedButton",
-        "ui-elements/Card": "./src/Card/Card",
-      },
-      shared: {
-        ...deps,
-        react: { singleton: true, eager: true, requiredVersion: deps.react },
-        "react-dom": {
-          singleton: true,
-          eager: true,
-          requiredVersion: deps["react-dom"],
+    devServer: {
+      open: true,
+      clientLogLevel: "silent",
+      contentBase: "./dist",
+      historyApiFallback: true,
+      hot: true,
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(jsx|js)$/,
+          include: path.resolve(__dirname, "src"),
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                presets: [
+                  [
+                    "@babel/preset-env",
+                    {
+                      targets: {
+                        node: "12",
+                      },
+                    },
+                  ],
+                  "@babel/preset-react",
+                ],
+              },
+            },
+          ],
         },
-        "react-router-dom": {
-          singleton: true,
-          eager: true,
-          requiredVersion: deps["react-router-dom"],
+        {
+          test: /\.css$/i,
+          include: path.resolve(__dirname, "src"),
+          exclude: /node_modules/,
+          use: [
+            "style-loader",
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                hmr: argv.mode === "development",
+              },
+            },
+            {
+              loader: "css-loader",
+              options: {
+                importLoaders: 1,
+              },
+            },
+            "postcss-loader",
+          ],
         },
-      },
-    }),
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-  ],
+      ],
+    },
+  };
 };
