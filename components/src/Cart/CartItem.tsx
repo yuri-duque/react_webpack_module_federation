@@ -1,5 +1,6 @@
-import ContainedButton from "ui-elements/Button/ContainedButton";
-import Card from "ui-elements/Card";
+import React from "react";
+import ContainedButton from "uiElements/ContainedButton";
+// import Card from "uiElements/Card";
 
 export interface CartItemProps {
   quantity: number;
@@ -9,19 +10,19 @@ export interface CartItemProps {
 
 const CartItem = function ({ quantity, add, remove }: CartItemProps) {
   return (
-    <Card title="leite">
-      <div className="flex justify-between items-center">
-        <ContainedButton color="error" onClick={() => remove(quantity)}>
-          -
-        </ContainedButton>
+    // <Card title="leite">
+    <div className="flex justify-between items-center">
+      <ContainedButton color="error" onClick={() => remove(quantity)}>
+        -
+      </ContainedButton>
 
-        <p className="text-center font-bold px-4">{quantity}</p>
+      <p className="text-center font-bold px-4">{quantity}</p>
 
-        <ContainedButton color="success" onClick={() => add(quantity)}>
-          +
-        </ContainedButton>
-      </div>
-    </Card>
+      <ContainedButton color="success" onClick={() => add(quantity)}>
+        +
+      </ContainedButton>
+    </div>
+    // </Card>
   );
 };
 
