@@ -22,5 +22,5 @@
       "ui-elements/Card": ["./ui-elements/src/Card/Card"]
     }
   },
-  "include": ["*"]
+  "include": ["*/src"]
 }
