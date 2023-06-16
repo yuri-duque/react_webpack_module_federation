@@ -7,7 +7,7 @@ export interface CartItemProps {
   remove: (quantity: number) => void;
 }
 
-export const CartItem = function ({ quantity, add, remove }: CartItemProps) {
+const CartItem = function ({ quantity, add, remove }: CartItemProps) {
   return (
     <Card title="leite">
       <div className="flex justify-between items-center">
