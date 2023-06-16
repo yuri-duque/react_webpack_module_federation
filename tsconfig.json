@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -12,14 +13,15 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
+    "sourceMap": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "ui-elements/Button/ContainedButton": [
+      "uiElements/ContainedButton": [
         "./ui-elements/src/Button/ContainedButton"
       ],
-      "ui-elements/Card": ["./ui-elements/src/Card/Card"]
+      "uiElements/Card": ["./ui-elements/src/Card/Card"]
     }
   },
   "include": ["*/src"]
