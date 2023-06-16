@@ -9,11 +9,7 @@ const { ModuleFederationPlugin } = webpack.container;
 const deps = pkg.dependencies;
 
 module.exports = {
-  entry: path.join(__dirname, "src", "index.tsx"),
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
-  },
+  entry: path.join(__dirname, "src", "index.ts"),
   mode: "development",
   devServer: {
     port: 3001,
@@ -42,11 +38,10 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "ui-elements",
+      name: "uiElements", // Não pode ser igual ao expose
       filename: "remoteEntry.js",
       exposes: {
-        "ui-elements/Button/ContainedButton": "./src/Button/ContainedButton",
-        "ui-elements/Card": "./src/Card/Card",
+        "./ContainedButton": "./src/Button/ContainedButton",
       },
       shared: {
         ...deps,
@@ -56,19 +51,13 @@ module.exports = {
           eager: true,
           requiredVersion: deps["react-dom"],
         },
-        "react-router-dom": {
-          singleton: true,
-          eager: true,
-          requiredVersion: deps["react-router-dom"],
-        },
       },
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].bundle.css",
-      chunkFilename: "[id].css",
+      chunkFilename: `${pkg.name.split("/").pop()}-[name].css`,
     }),
     new CleanWebpackPlugin(), // Um plugin webpack para remover / limpar sua (s) pasta (s) de construção.
     new webpack.HotModuleReplacementPlugin(), // Atualiza o navegador quando houver alterações no código
