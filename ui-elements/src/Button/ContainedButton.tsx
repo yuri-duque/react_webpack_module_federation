@@ -10,7 +10,7 @@ export interface ButtonProps {
   children?: ReactNode;
 }
 
-export const Button = function ({
+const Button = function ({
   size = "medium",
   color = "primary",
   uppercase = false,

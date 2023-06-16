@@ -7,7 +7,7 @@ export interface CardProps {
   children?: ReactNode;
 }
 
-export const Card = function ({ title, size = "fit", children }: CardProps) {
+const Card = function ({ title, size = "fit", children }: CardProps) {
   const className = handleClassName(size);
 
   return (

@@ -4,7 +4,7 @@ export interface CardTitleProps {
   title?: string;
 }
 
-export const CardTitle = function ({ title }: CardTitleProps) {
+const CardTitle = function ({ title }: CardTitleProps) {
   if (!title) return <></>;
 
   return (
