@@ -41,28 +41,28 @@ module.exports = {
     ],
   },
   plugins: [
-    // new ModuleFederationPlugin({
-    //   name: "ui-elements",
-    //   filename: "remoteEntry.js",
-    //   exposes: {
-    //     "ui-elements/Button/ContainedButton": "./src/Button/ContainedButton",
-    //     "ui-elements/Card": "./src/Card/Card",
-    //   },
-    //   shared: {
-    //     ...deps,
-    //     react: { singleton: true, eager: true, requiredVersion: deps.react },
-    //     "react-dom": {
-    //       singleton: true,
-    //       eager: true,
-    //       requiredVersion: deps["react-dom"],
-    //     },
-    //     "react-router-dom": {
-    //       singleton: true,
-    //       eager: true,
-    //       requiredVersion: deps["react-router-dom"],
-    //     },
-    //   },
-    // }),
+    new ModuleFederationPlugin({
+      name: "ui-elements",
+      filename: "remoteEntry.js",
+      exposes: {
+        "ui-elements/Button/ContainedButton": "./src/Button/ContainedButton",
+        "ui-elements/Card": "./src/Card/Card",
+      },
+      shared: {
+        ...deps,
+        react: { singleton: true, eager: true, requiredVersion: deps.react },
+        "react-dom": {
+          singleton: true,
+          eager: true,
+          requiredVersion: deps["react-dom"],
+        },
+        "react-router-dom": {
+          singleton: true,
+          eager: true,
+          requiredVersion: deps["react-router-dom"],
+        },
+      },
+    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
